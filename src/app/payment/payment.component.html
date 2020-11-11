@@ -1,1 +1,55 @@
-<p>payment works!</p>
+<div class="outer-wrapper">
+  <div class="inner-wrapper">
+    <div class="header">
+      <h1>Pay invoice</h1>
+    </div>
+    <div class="cards">
+      <img [ngClass]="{'selected':type === 'Visa'}" src="assets/images/visa.png">
+      <img [ngClass]="{'selected':type === 'Mastercard'}" src="assets/images/master.png">
+      <img [ngClass]="{'selected':type === 'AMEX'}" src="assets/images/american.png">
+      <img [ngClass]="{'selected':type === 'Discover'}" src="assets/images/discover.png">
+
+
+    </div>
+    <form [formGroup]="paymentForm" (ngSubmit)="submit()">
+      <label>
+        Name on card
+        <span class="error" *ngIf="validateSupport && paymentForm.get('name').errors">
+          Must have name as it appears on card.
+        </span>
+      </label><br>
+      <input [ngClass]="{'selected':validateSupport && paymentForm.get('name').errors}" formControlName="name" type="text"><br>
+      <label>
+        Card number
+        <span class="error" *ngIf="validateSupport && paymentForm.get('card').errors">
+          Must have card number as it appears on card.
+        </span>
+      </label><br>
+      <input [ngClass]="{'selected':validateSupport && paymentForm.get('card').errors}" formControlName="card" type="text"><br>
+      <label>
+        Expiration date
+        <span class="error" *ngIf="validateSupport && paymentForm.get('date').errors">
+          Must have expiration as it appears on card.
+        </span>
+      </label><br>
+      <input [ngClass]="{'selected':validateSupport && paymentForm.get('date').errors}" formControlName="date" type="month" [min]="setDate"><br>
+      <label>
+        Security code
+        <span class="error" *ngIf="validateSupport && paymentForm.get('code').errors">
+          Must have security code as it appears on card.
+        </span>
+      </label><br>
+      <input [ngClass]="{'selected':validateSupport && paymentForm.get('code').errors}" formControlName="code" type="text" maxlength="4"><br>
+      <label>
+        Postal code
+        <span class="error" *ngIf="validateSupport && paymentForm.get('postal').errors">
+          Must have Postal code as it appears your bill.
+        </span>
+      </label><br>
+      <input [ngClass]="{'selected':validateSupport && paymentForm.get('postal').errors}" formControlName="postal" type="text" maxlength="5"><br>
+      <div class="submit">
+        <input type="submit" value="Pay">
+      </div>
+    </form>
+  </div>
+</div>
